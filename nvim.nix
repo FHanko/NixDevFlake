@@ -1,5 +1,7 @@
 { nixvim, system }:
 nixvim.legacyPackages.${system}.makeNixvim {
+    globals.mapleader = " ";
+
     colorschemes.catppuccin = {
         enable = true;
         settings.flavour = "mocha";
@@ -22,4 +24,6 @@ nixvim.legacyPackages.${system}.makeNixvim {
         tabstop = 4;
         shiftwidth = 4;
     };
+
+    keymaps = import ./keymaps.nix;
 }
