@@ -1,40 +1,48 @@
-{ nixvim, system, pkgs }:
+{
+  nixvim,
+  system,
+  pkgs,
+}:
 nixvim.legacyPackages.${system}.makeNixvim {
-    globals.mapleader = " ";
+  globals.mapleader = " ";
 
-    colorschemes.catppuccin = {
-        enable = true;
-        settings.flavour = "mocha";
-    };
+  colorschemes.catppuccin = {
+    enable = true;
+    settings.flavour = "mocha";
+  };
 
-    plugins.web-devicons.enable = true;
-    plugins.telescope.enable = true;
-    plugins.lualine.enable = true;
-    plugins.noice.enable = true;
-    plugins.which-key.enable = true;
-    
-    plugins.treesitter = {
-        enable = true;
-        grammarPackages = with pkgs.vimPlugins.nvim-treesitter.builtGrammars; [
-            nix
-            zig
-        ];
-    };
+  plugins.web-devicons.enable = true;
+  plugins.telescope.enable = true;
+  plugins.lualine.enable = true;
+  plugins.noice.enable = true;
+  plugins.which-key.enable = true;
 
-    plugins.lsp = {
-        enable = true;
-        servers.zls.enable = true;
-        servers.nixd.enable = true;
-    };
+  plugins.treesitter = {
+    enable = true;
+    grammarPackages = with pkgs.vimPlugins.nvim-treesitter.builtGrammars; [
+      nix
+      zig
+    ];
+  };
 
-    opts = {
-        number = true;
-        expandtab = true;
-        tabstop = 4;
-        shiftwidth = 4;
-    };
+  plugins.lsp = {
+    enable = true;
+    servers.zls.enable = true;
+    servers.nixd.enable = true;
+  };
 
-    extraPackages = with pkgs; [ ripgrep nixfmt-rfc-style nixd ];
-    autoCmd = import ./auto_cmd.nix;
-    keymaps = import ./keymaps.nix;
+  opts = {
+    number = true;
+    expandtab = true;
+    tabstop = 4;
+    shiftwidth = 4;
+  };
+
+  extraPackages = with pkgs; [
+    ripgrep
+    nixfmt
+    nixd
+  ];
+  autoCmd = import ./auto_cmd.nix;
+  keymaps = import ./keymaps.nix;
 }
