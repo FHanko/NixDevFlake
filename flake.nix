@@ -5,18 +5,32 @@
     nixvim.url = "github:nix-community/nixvim";
   };
 
-  outputs = { self, nixpkgs, flake-utils, nixvim }:
-    flake-utils.lib.eachDefaultSystem (system:
+  outputs =
+    {
+      self,
+      nixpkgs,
+      flake-utils,
+      nixvim,
+    }:
+    flake-utils.lib.eachDefaultSystem (
+      system:
       let
         pkgs = nixpkgs.legacyPackages.${system};
-        nvim = import ./nvim.nix { inherit nixvim system; };
-      in {
+        nvim = import ./nvim.nix { inherit nixvim system pkgs; };
+      in
+      {
         devShells.default = pkgs.mkShell {
-          packages = with pkgs; [ zig zls git nvim ];
+          packages = with pkgs; [
+            zig
+            zls
+            git
+            nvim
+          ];
 
           shellHook = ''
             echo "Zig $(zig version)"
           '';
         };
-      });
+      }
+    );
 }

@@ -1,4 +1,4 @@
-{ nixvim, system }:
+{ nixvim, system, pkgs }:
 nixvim.legacyPackages.${system}.makeNixvim {
     globals.mapleader = " ";
 
@@ -8,14 +8,23 @@ nixvim.legacyPackages.${system}.makeNixvim {
     };
 
     plugins.web-devicons.enable = true;
-    plugins.treesitter.enable = true;
     plugins.telescope.enable = true;
     plugins.lualine.enable = true;
     plugins.noice.enable = true;
     plugins.which-key.enable = true;
+    
+    plugins.treesitter = {
+        enable = true;
+        grammarPackages = with pkgs.vimPlugins.nvim-treesitter.builtGrammars; [
+            nix
+            zig
+        ];
+    };
+
     plugins.lsp = {
         enable = true;
         servers.zls.enable = true;
+        servers.nixd.enable = true;
     };
 
     opts = {
@@ -25,5 +34,7 @@ nixvim.legacyPackages.${system}.makeNixvim {
         shiftwidth = 4;
     };
 
+    extraPackages = with pkgs; [ ripgrep nixfmt-rfc-style nixd ];
+    autoCmd = import ./auto_cmd.nix;
     keymaps = import ./keymaps.nix;
 }
