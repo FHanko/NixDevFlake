@@ -21,18 +21,17 @@
       {
         devShells.default = pkgs.mkShell {
           packages = with pkgs; [
-            rustc
-            cargo
-            rust-analyzer
-            rustfmt
-            clippy
+            jdk21
+            kotlin
+            gradle
+            kotlin-language-server
             git
             nvim
             starship
           ];
-
           shellHook = ''
-            echo "Rust $(rustc --version)"
+            echo "Kotlin $(kotlin -version 2>&1)"
+            export JAVA_HOME=${pkgs.jdk21}
             eval "$(starship init bash)"
           '';
         };
