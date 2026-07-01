@@ -34,6 +34,11 @@ nixvim.legacyPackages.${system}.makeNixvim {
     grammarPackages = with pkgs.vimPlugins.nvim-treesitter.builtGrammars; [
       nix
       zig
+      kotlin
+      rust
+      toml
+      markdown
+      bash
     ];
   };
 
