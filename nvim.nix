@@ -29,6 +29,8 @@ nixvim.legacyPackages.${system}.makeNixvim {
     enable = true;
     servers.zls.enable = true;
     servers.nixd.enable = true;
+    servers.kotlin_language_server.enable = true;
+    servers.rust_analyzer.enable = true;
   };
 
   opts = {
