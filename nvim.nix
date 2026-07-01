@@ -2,6 +2,7 @@
   nixvim,
   system,
   pkgs,
+  enabledServers ? [ "nixd" ],
 }:
 nixvim.legacyPackages.${system}.makeNixvim {
   globals.mapleader = " ";
@@ -27,10 +28,9 @@ nixvim.legacyPackages.${system}.makeNixvim {
 
   plugins.lsp = {
     enable = true;
-    servers.zls.enable = true;
-    servers.nixd.enable = true;
-    servers.kotlin_language_server.enable = true;
-    servers.rust_analyzer.enable = true;
+    servers = pkgs.lib.genAttrs enabledServers (name: {
+      enable = true;
+    });
   };
 
   opts = {

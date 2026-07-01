@@ -16,7 +16,10 @@
       system:
       let
         pkgs = nixpkgs.legacyPackages.${system};
-        nvim = nixdevflake.lib.mkNvim system;
+        nvim = nixdevflake.lib.mkNvim system [
+          "rust_analyzer"
+          "nixd"
+        ];
       in
       {
         devShells.default = pkgs.mkShell {
