@@ -25,10 +25,11 @@
             zls
             git
             nvim
+            starship
           ];
 
           shellHook = ''
-            echo "Zig $(zig version)"
+            eval "$(starship init bash)"
           '';
         };
       }
