@@ -1,8 +1,17 @@
 {
   description = "A collection of flake templates";
 
+  inputs = {
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    nixvim.url = "github:nix-community/nixvim";
+  };
+
   outputs =
-    { self }:
+    {
+      self,
+      nixpkgs,
+      nixvim,
+    }:
     {
 
       templates = {
@@ -19,5 +28,12 @@
       };
 
       defaultTemplate = self.templates.ktx;
+
+      lib.mkNvim =
+        system:
+        import ./nvim.nix {
+          inherit nixvim system;
+          pkgs = nixpkgs.legacyPackages.${system};
+        };
     };
 }
