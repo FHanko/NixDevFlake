@@ -20,9 +20,12 @@ nixvim.legacyPackages.${system}.makeNixvim {
 
   plugins.neo-tree = {
     enable = true;
-    filesystem = {
+    settings.filesystem = {
       follow_current_file.enabled = true;
       hijack_netrw_behavior = "open_current";
+    };
+    settings.window = {
+      width = 25;
     };
   };
 
@@ -50,7 +53,7 @@ nixvim.legacyPackages.${system}.makeNixvim {
         "snippets"
         "buffer"
       ];
-      keymap.preset = "default";
+      keymap.preset = "enter";
     };
   };
 
