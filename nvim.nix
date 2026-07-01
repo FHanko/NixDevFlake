@@ -18,6 +18,14 @@ nixvim.legacyPackages.${system}.makeNixvim {
   plugins.noice.enable = true;
   plugins.which-key.enable = true;
 
+  plugins.neo-tree = {
+    enable = true;
+    filesystem = {
+      follow_current_file.enabled = true;
+      hijack_netrw_behavior = "open_current";
+    };
+  };
+
   plugins.treesitter = {
     enable = true;
     grammarPackages = with pkgs.vimPlugins.nvim-treesitter.builtGrammars; [
@@ -31,6 +39,19 @@ nixvim.legacyPackages.${system}.makeNixvim {
     servers = pkgs.lib.genAttrs enabledServers (name: {
       enable = true;
     });
+  };
+
+  plugins.blink-cmp = {
+    enable = true;
+    settings = {
+      sources.default = [
+        "lsp"
+        "path"
+        "snippets"
+        "buffer"
+      ];
+      keymap.preset = "default";
+    };
   };
 
   opts = {
