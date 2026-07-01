@@ -30,9 +30,9 @@
       defaultTemplate = self.templates.ktx;
 
       lib.mkNvim =
-        system: enabledServers:
+        system: servers:
         import ./nvim.nix {
-          inherit nixvim system enabledServers;
+          inherit nixvim system servers;
           pkgs = nixpkgs.legacyPackages.${system};
         };
     };

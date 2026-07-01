@@ -16,10 +16,21 @@
       system:
       let
         pkgs = nixpkgs.legacyPackages.${system};
-        nvim = nixdevflake.lib.mkNvim system [
-          "kotlin_language_server"
-          "nixd"
-        ];
+        nvim = nixdevflake.lib.mkNvim system {
+          nixd.enable = true;
+          kotlin_language_server = {
+            enable = true;
+            settings = {
+              kotlin = {
+                compiler = {
+                  jvm = {
+                    target = "21";
+                  };
+                };
+              };
+            };
+          };
+        };
       in
       {
         devShells.default = pkgs.mkShell {
